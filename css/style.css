@@ -383,23 +383,23 @@ zoom:1; border:1px solid #cae1fc; -moz-border-radius:13px; -webkit-border-radius
 /* =============================================================================
    Footer
    ========================================================================== */
-#footer { clear: both; color: #EBEBEB; font-size: 11px; margin: 0 0 100px; padding: 0; }
-#footer a:link, #footer a:visited { color: #EBEBEB; }
-#footer .container { background-color: #5D5D5D; padding:0; }
-#footer .left { padding: 20px 0 0 20px; }
-#footer .right { background-color: #505050; padding: 10px 20px 50px; }
-#footer .widgetTitle { background-image: none; border-bottom: 0 none; color: #D0D0D0; font-size: 12px; margin-bottom: 0; padding-left: 0; }
-#footer .right ul { border-top: 1px solid #7F8080; margin-bottom: 20px; padding-top: 20px; }
-#footer .block-menu .widgetTitle { display: none; }
-#footer ul { list-style: none outside none; margin: 0; padding: 0; }
-#footer ul.menu { margin-right: 0; }
-#footer ul.menu li { list-style-image: none; margin: 0 15px 0 0; }
-#footer .menu .expanded { font-size: 100%; font-weight: bold; height: 185px; line-height: 2.5em; width: 125px; white-space: nowrap; }
-#footer .expanded .menu { font-size: 93%; font-weight: normal; }
-#footer li { line-height: 1.54em; list-style: none outside none; margin-bottom: 0; }
-#footer li.expanded { float: left; }
-#footer .seal { background: url("../img/FCCseal.png") no-repeat scroll left 25px transparent; border-top: 1px solid #7F8080; clear: both; display: block; font-style: normal; line-height: 1.4em; margin-top: 20px; padding: 30px 0 20px 130px; }
-
+footer { clear: both; color: #EBEBEB; font-size: 11px; margin: 0 0 100px; padding: 0; }
+footer a:link, footer a:visited { color: #EBEBEB; }
+footer .container { background-color: #5D5D5D; padding:0; }
+footer .left { padding: 20px 0 0 20px; }
+footer .right { background-color: #505050; padding: 10px 20px 50px; }
+footer .widgetTitle { background-image: none; border-bottom: 0 none; color: #D0D0D0; font-size: 12px; margin-bottom: 0; padding-left: 0; }
+footer .right ul { border-top: 1px solid #7F8080; margin-bottom: 20px; padding-top: 20px; }
+footer .block-menu .widgetTitle { display: none; }
+footer ul { list-style: none outside none; margin: 0; padding: 0; }
+footer ul.menu { margin-right: 0; }
+footer ul.menu li { list-style-image: none; margin: 0 15px 0 0; }
+footer .menu .expanded { font-size: 100%; font-weight: bold; height: 185px; line-height: 2.5em; width: 125px; white-space: nowrap; }
+footer .expanded .menu { font-size: 93%; font-weight: normal; }
+footer li { line-height: 1.54em; list-style: none outside none; margin-bottom: 0; }
+footer li.expanded { float: left; }
+footer .seal { background: url("../img/FCCseal.png") no-repeat scroll left 25px transparent; border-top: 1px solid #7F8080; clear: both; display: block; font-style: normal; line-height: 1.4em; margin-top: 20px; padding: 30px 0 20px 130px; }
+#footer-nav { margin-bottom: 20px; }
 /* ===================
     Footer Email Form
    =================== */
@@ -430,7 +430,7 @@ padding: 0; text-transform: uppercase; }
 		.social-media li { height: 80px; }
 		#sidebar li.break { width: 80px; }
 		.sel-perPage { display: inline; }
-		#footer .left { padding: 20px 0 0; }
+		footer .left { padding: 20px 0 0; }
 		#footer-nav .columns.omega { margin-left: 0; }
 		.results li { width: 208px; }
 	}
@@ -467,7 +467,7 @@ padding: 0; text-transform: uppercase; }
 		#sidebar { background-color: #F0F0F0; }
 		#sidebar .widget { margin: 10px 10px; }
 		.ui-dialog { width: 300px; }
-		#footer li.expanded { padding-bottom: 20px; }
+		footer li.expanded { padding-bottom: 20px; }
 		#footer-nav div { margin-bottom: 10px; }
 	}
 
