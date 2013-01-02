@@ -12,7 +12,7 @@
 			//var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc/geocode/' + zipcode + '.json';
 			var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc.map-rons6wgv/geocode/' + Coords.long + ',' + Coords.lat + '.json';
 			
-console.log(mapBoxURL);			
+
 			/*map = new google.maps.Map(mapContainer, {
 				disableDefaultUI: true,
 				zoom: 11,
@@ -31,7 +31,7 @@ console.log(mapBoxURL);
 			);*/		
 			
 			$.getJSON(mapBoxURL, function (value) {
-console.log(value.results.length);				
+			
 				if (value.results.length==0) {			        	 
 			        	 alert("We could not verify this is a valid zip code.");
 			        	 //$( "#dlg-verifyZip" ).dialog( "option", "height", 150 );
@@ -183,7 +183,7 @@ console.log(value.results.length);
 			var url = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=jsonp&callback=?',
 					urlXML = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=xml',
 					lpfmAPI = 'http://data.fcc.gov/lpfmapi/rest/v1/lat/' + Coords.lat + '/long/' + Coords.long + '?secondchannel=true&ifchannel=true&format=jsonp&callback=?';
-console.log(lpfmAPI);				
+		
 			$('.api').attr('href', urlXML);
 			
 			// AJAX call to grab LPFM data
