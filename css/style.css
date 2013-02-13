@@ -6,7 +6,7 @@ body { background: url("../img/page-bg.png") no-repeat scroll center 10px #01010
 /* =============================================================================
    Header
    ========================================================================== */
-#header-container { background: url("../img/bgNav.png") repeat-x scroll 0 0 transparent; }
+header { background: url("../img/bgNav.png") repeat-x scroll 0 0 transparent; }
 #banner-fcc { height: 67px; }
 #logo-fcc { float: left; }
 #title-site { color: #FFFFFF; font-family: Arimo, Helvetica, Arial, sans-serif; font-size: 25px; font-weight: normal; margin: 0; padding: 5px 5px 0 0px; }
