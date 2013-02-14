@@ -31,26 +31,31 @@
 				var mapContainer = $("#mapContainer")[0],
 					zipcode = $('#zipcode').val();
 				var boundArray = [];
-				var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc.map-rons6wgv/geocode/' + Coords.long + ',' + Coords.lat + '.json';
+				var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc.map-rons6wgv/geocode/' + Coords.long + ',' + Coords.lat + '.jsonp';
 
-				$.getJSON(mapBoxURL, function(value) {
-				  if (value.results.length == 0) {
-					  alert("We could not verify this is a valid zip code.");
-				  } else {
-					  result = value.results[0][0];
-					  lat = result.lat;
-					  lon = result.lon;
-					  resultType = result.type;
-					  boundArray.push(parseFloat(result.bounds[1]));
-					  boundArray.push(parseFloat(result.bounds[3]));
-					  boundArray.push(parseFloat(result.bounds[0]));
-					  boundArray.push(parseFloat(result.bounds[2]));
-					  zoom = 12;
-					  mapSrc = "<img src='http://api.tiles.mapbox.com/v3/computech.map-mgys0lxe/pin-m-x+48C(" + lon + "," + lat + ")/" + lon + "," + lat + "," + zoom + "/290x150.png'/>";
-
-					  $('#mapContainer').empty();
-					  $('#mapContainer').html(mapSrc);
-				  }
+				$.ajax({
+					url: mapBoxURL,
+					dataType: 'jsonp',
+					jsonpCallback: 'grid',
+					success: function(value) {					
+							if (value.results.length == 0) {
+								alert("We could not verify this is a valid zip code.");
+							} else {
+								result = value.results[0][0];
+								lat = result.lat;
+								lon = result.lon;
+								resultType = result.type;
+								boundArray.push(parseFloat(result.bounds[1]));
+								boundArray.push(parseFloat(result.bounds[3]));
+								boundArray.push(parseFloat(result.bounds[0]));
+								boundArray.push(parseFloat(result.bounds[2]));
+								zoom = 12;
+								mapSrc = "<img src='http://api.tiles.mapbox.com/v3/computech.map-mgys0lxe/pin-m-x+48C(" + lon + "," + lat + ")/" + lon + "," + lat + "," + zoom + "/290x150.png'/>";
+		
+								$('#mapContainer').empty();
+								$('#mapContainer').html(mapSrc);
+							}
+						 }
 			  });
 
 				$('#lat').text(Coords.lat.toFixed(6));
