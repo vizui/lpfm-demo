@@ -21,6 +21,8 @@
 				Coords.lat = 38.903228;
 				Coords.long = -77.046012;
 				
+				$('#zipcode').val('');
+				$('#tbl-chanfreq').hide();
 				$('#lat').text(Coords.lat.toFixed(6));
 				$('#long').text(Coords.long.toFixed(6));
 				
@@ -103,7 +105,8 @@
 							alert('Unable to get current position. Using default position instead.');
 						});
 					} else {
-						alert('Your browser does not currently support geolocation.')
+						alert('Your browser does not currently support geolocation.');
+						FCCMap.init();
 					}
 				} else {
 					var zip = $('#zipcode').val();
@@ -111,9 +114,9 @@
 				}
 
 				$('#btn-getCoords').click(function(e) {
-					var zip = $('#zipcode').val();
-					$('#msg-error').hide();
+					var zip = $('#zipcode').val();					
 					e.preventDefault();
+					$('#msg-error').hide();
 					FCCMap.geocode_zip(zip);
 				});
 
@@ -133,7 +136,7 @@
 				$('#lnk-curLoc').click(function(e) {
 					e.preventDefault();
 					$('#zipcode').val('');
-					location.reload();
+					Coords.getPos();
 				});
 			} // End Coords.getPos
 		} // End Coords
@@ -149,42 +152,50 @@
 				$('#api-lpfm').attr('href', lpfmAPI);
 
 				// AJAX call to grab LPFM data
-				$.getJSON(lpfmAPI, function(data) {
-						var chanfreq = data.interferingAnalysis,
-							chanfreqLen = chanfreq.length,
-							TR = '';
-
-						if (data.decision == 'FAIL.') {
+				$.getJSON(lpfmAPI, function(data) { 
+						if (data.status == 'Bad Request') {
 							$('#tbl-chanfreq').hide();
-							$('#msg-error').empty().show().append('There are no interfering channels and frequencies near the selected area.');
+							$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
 						} else {
-							
-							// Populate Chan./Freq. table
-							if (chanfreqLen > 0) {
-								for (var i = 0; i < chanfreqLen; i++) {
-									TR += '<tr><td>' + chanfreq[i].channel + '</td><td>' + chanfreq[i].frequency + '</td></tr>';
-								}
-							} else {
-								TR = '<tr><td>' + chanfreq.channel + '</td><td>' + chanfreq.frequency + '</td></tr>';
-							}
+							var chanfreq = data.interferingAnalysis,
+								chanfreqLen = chanfreq.length,
+								TR = '';
 
-							$('#msg-error').hide();
-							$('#tbl-chanfreq').show().find('tbody').empty().append(TR);	
-						}
-						
-						
-					});
+							if (data.decision == 'FAIL.') {
+								$('#tbl-chanfreq').hide();
+								$('#msg-error').empty().show().append('There are no interfering channels and frequencies near the selected area.');
+							} else {
+								
+								// Populate Chan./Freq. table
+								if (chanfreqLen > 0) {
+									for (var i = 0; i < chanfreqLen; i++) {
+										TR += '<tr><td>' + chanfreq[i].channel + '</td><td>' + chanfreq[i].frequency + '</td></tr>';
+									}
+								} else {
+									TR = '<tr><td>' + chanfreq.channel + '</td><td>' + chanfreq.frequency + '</td></tr>';
+								}
+	
+								$('#msg-error').hide();
+								$('#tbl-chanfreq').show().find('tbody').empty().append(TR);	
+							}												
+						}						
+				});
 
 				// AJAX call to grab demographics data
-				$.getJSON(url, function(data) {
-					if (data.status == "OK") {
-						Demog.displayData(data);
+				$.getJSON(url, function(data) { 
+					if ((data.status == "OK") && (data.message.length == 0)){						
+						Demog.displayData(data);		
+					} else { 					
+						$('#lst-demog').hide();
+						$('#msg-demog').empty().append(data.message[0]).show();				
 					}
 				});
 			},
 			// End Demog.getData
 			displayData: function(d) {
 				var dd = $('#lst-demog').find('dd');
+				
+				$('#msg-demog').hide();
 
 				// Populate Demographics info
 				resultsArr = $.map(d.Results, function(val, i) {
@@ -200,7 +211,7 @@
 						$(this).text(resultsArr[index]);
 					}
 				});
-
+				$('#lst-demog').show();
 			}
 		} // End Demog
 
