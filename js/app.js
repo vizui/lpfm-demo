@@ -131,7 +131,9 @@
 						$(this).val('');
 						e.preventDefault();
 					}					
-				});
+				}).blur(function(e) {
+                    $('#btn-getCoords').click();
+                });
 
 				$('#lnk-curLoc').click(function(e) {
 					e.preventDefault();
