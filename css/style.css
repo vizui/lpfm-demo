@@ -22,7 +22,7 @@ body { background: url("../img/page-bg.png") no-repeat scroll center 10px #01010
 /* =============================================================================
    Headings
    ========================================================================== */
-.section-heading { font-size: 11px; line-height: 18px; margin-bottom: 5px; text-transform: uppercase; }
+.section-heading { font-size: 13px; font-weight: normal; line-height: 18px; margin-bottom: 5px; text-transform: uppercase; }
 .heading-dataSource { float: left; }
 
 /* =============================================================================
@@ -51,7 +51,7 @@ body { background: url("../img/page-bg.png") no-repeat scroll center 10px #01010
 .dl-inline{ font-size: 11px; }
 .dl-inline dt { clear: left; float:left; margin:0 0 5px; font-weight:bold; }
 .dl-inline dd { margin: 0 0 5px 185px; word-wrap: break-word; }
-.api-source dd { margin-left: 180px; }
+.api-source dd { margin-left: 140px; }
 
 
 /* =============================================================================
@@ -82,10 +82,7 @@ body { background: url("../img/page-bg.png") no-repeat scroll center 10px #01010
 /* =============================================================================
    Messages
    ========================================================================== */
-.msg-error { background:#fff0dd url(../img/bg-errors.png) repeat-y right 0; padding: 10px; }
-.msg-error p { margin-bottom: 0; }
-.msg-notify { background-color: #FFFFE6; border: 1px dashed #CCC; padding: 5px; }
-.msg-notify h3 { margin-top: 0; }
+.msg-error { color: #AE0000; }
 
 #loading { background:transparent url(../img/loading.gif) no-repeat center top; clear:both; height:18px; left: 0px; margin: 10px 0; padding-top:25px; position: absolute; top: 30px; text-align:center; width: 100%; }
 
@@ -128,7 +125,7 @@ footer .seal { background: url("../img/FCCseal.png") no-repeat scroll left 25px 
 		#title-site { font-size: 20px; line-height: 30px; padding: 5px 5px 20px 0; }
 		#main-content h1 { margin: 0 15px; padding-left: 0; }		
 		.content-body { padding: 0; }
-		.tbl-data { width: auto; }
+		.tbl-data { width: 100%; }
 		#sidebar { background-color: #F0F0F0; }
 		#sidebar .widget { margin: 10px 10px; }
 		#footer-nav div { margin-bottom: 10px; }
