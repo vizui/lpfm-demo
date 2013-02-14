@@ -115,6 +115,8 @@ footer .seal { background: url("../img/FCCseal.png") no-repeat scroll left 25px 
 		body { background: url("../img/page-bg-mobile.jpg") no-repeat scroll center 10px #010103; }
 		#main-wrapper { background: url("../img/main-body-bg-medium.png") repeat-y scroll left top #FFFFFF; }
 		.content-body { padding: 0; margin-top: 20px; }
+		.dl-inline dt { float: none; line-height: normal; margin-bottom: 0; }
+		.dl-inline dd { margin: 0 0 10px 10px; }
 		footer .left { padding: 20px 0 0; }
 		#footer-nav .columns.omega { margin-left: 0; }		
 	}
@@ -126,6 +128,7 @@ footer .seal { background: url("../img/FCCseal.png") no-repeat scroll left 25px 
 		#main-content h1 { margin: 0 15px; padding-left: 0; }		
 		.content-body { padding: 0; }
 		.tbl-data { width: 100%; }
+		
 		#sidebar { background-color: #F0F0F0; }
 		#sidebar .widget { margin: 10px 10px; }
 		#footer-nav div { margin-bottom: 10px; }
