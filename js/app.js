@@ -1,8 +1,9 @@
 (function() {
 
 	var Coords = {},
-		Demog = {},
-		FCCMap = {};
+			LPFM = {},
+			Demog = {},
+			FCCMap = {};
 	
 	// Enable Skiplinks to work in WebKit browsers (e.g. Safari and Chrome) 
 	var is_webkit = navigator.userAgent.toLowerCase().indexOf('webkit') > -1;
@@ -23,10 +24,11 @@
 				
 				$('#zipcode').val('');
 				$('#tbl-chanfreq').hide();
-				$('#lat').text(Coords.lat.toFixed(6));
-				$('#long').text(Coords.long.toFixed(6));
+				$('#lat').text(Coords.lat.toFixed(4));
+				$('#long').text(Coords.long.toFixed(4));
 				
 				FCCMap.update();
+				LPFM.getData();
 				Demog.getData();
 			},
 			update: function() {
@@ -60,25 +62,31 @@
 						 }
 			  });
 
-				$('#lat').text(Coords.lat.toFixed(6));
-				$('#long').text(Coords.long.toFixed(6));
+				$('#lat').text(Coords.lat.toFixed(4));
+				$('#long').text(Coords.long.toFixed(4));
 
 			}, // End FCCMap.update						
-			geocode_zip: function(zip) {
-				// Reverse geocode lat, long to get address
-				geocoder = new google.maps.Geocoder();
-				geocoder.geocode({
-					'address': zip
-				}, function(results, status) {
-					if (status == google.maps.GeocoderStatus.OK) {
-
-						Coords.lat = results[0].geometry.location.lat();
-						Coords.long = results[0].geometry.location.lng();
-
-						FCCMap.update();
-						Demog.getData();
+			geocode_zip: function(zip) {				
+				var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc.map-rons6wgv/geocode/' + zip + '.jsonp';
+		
+				$.ajax({
+					url: mapBoxURL,
+					dataType: 'jsonp',
+					jsonpCallback: 'grid',
+					success: function(data) {	
+						if (data.results.length == 0) {
+								alert("We could not verify this is a valid zip code.");
+							} else {
+								Coords.lat = data.results[0][0].lat;
+								Coords.long = data.results[0][0].lon;
+		
+								FCCMap.update();
+								LPFM.getData();
+								Demog.getData();
+							}
 					}
 				});
+				
 			} // End FCCMap.geocode_zip
 		} // End FCCMap
 
@@ -87,32 +95,28 @@
 			long: null,
 			getPos: function() {
 
-				// If Zip Code box is empty, then get location automatically
-				if ($('#zipcode').val() == '') {
-					// Check if browser supports geolocation
-					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(
+				// Check if browser supports geolocation
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(
 
-						function(position) {
-							Coords.lat = position.coords.latitude;
-							Coords.long = position.coords.longitude;
-							$('#lat').text(Coords.lat.toFixed(6));
-							$('#long').text(Coords.long.toFixed(6));
+					function(position) {
+						Coords.lat = position.coords.latitude;
+						Coords.long = position.coords.longitude;
+						$('#lat').text(Coords.lat.toFixed(4));
+						$('#long').text(Coords.long.toFixed(4));
 
-							FCCMap.update();
-							Demog.getData();
-						}, function(error) {
-							alert('Unable to get current position. Using default position instead.');
-						});
-					} else {
-						alert('Your browser does not currently support geolocation.');
-						FCCMap.init();
-					}
+						FCCMap.update();
+						LPFM.getData();
+						Demog.getData();
+					}, function(error) {
+						alert('Unable to get current position. Using default position instead.');
+					});
 				} else {
-					var zip = $('#zipcode').val();
-					FCCMap.geocode_zip(zip);
+					alert('Your browser does not currently support geolocation.');
+					FCCMap.init();
 				}
-
+			}, // End Coords.getPos
+			getpos_Events: function () {
 				$('#btn-getCoords').click(function(e) {
 					var zip = $('#zipcode').val();					
 					e.preventDefault();
@@ -131,57 +135,66 @@
 						$(this).val('');
 						e.preventDefault();
 					}					
-				}).blur(function(e) {
-                    $('#btn-getCoords').click();
-                });
+				}).focus(function(e) {
+					$(this).select();	
+				});
 
 				$('#lnk-curLoc').click(function(e) {
 					e.preventDefault();
 					$('#zipcode').val('');
 					Coords.getPos();
-				});
-			} // End Coords.getPos
+				});	
+			} 
 		} // End Coords
 
-	Demog = {
-			getData: function() {
-
-				var url = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=jsonp&callback=?',
-					urlXML = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=xml',
-					lpfmAPI = 'http://data.fcc.gov/lpfmapi/rest/v1/lat/' + Coords.lat + '/long/' + Coords.long + '?secondchannel=true&format=jsonp&callback=?';
-
-				$('#api-demo').attr('href', urlXML);
-				$('#api-lpfm').attr('href', lpfmAPI);
-
-				// AJAX call to grab LPFM data
+	LPFM = {
+		getData: function () {
+			var lpfmAPI = 'http://data.fcc.gov/lpfmapi/rest/v1/lat/' + Coords.lat + '/long/' + Coords.long + '?secondchannel=true&format=jsonp&callback=?';
+			
+			$('#api-lpfm').attr('href', lpfmAPI);
+			
+			// AJAX call to grab LPFM data
 				$.getJSON(lpfmAPI, function(data) { 
 						if (data.status == 'Bad Request') {
 							$('#tbl-chanfreq').hide();
 							$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
 						} else {
-							var chanfreq = data.interferingAnalysis,
-								chanfreqLen = chanfreq.length,
-								TR = '';
-
-							if (data.decision == 'FAIL.') {
-								$('#tbl-chanfreq').hide();
-								$('#msg-error').empty().show().append('There are no interfering channels and frequencies near the selected area.');
-							} else {
-								
-								// Populate Chan./Freq. table
-								if (chanfreqLen > 0) {
-									for (var i = 0; i < chanfreqLen; i++) {
-										TR += '<tr><td>' + chanfreq[i].channel + '</td><td>' + chanfreq[i].frequency + '</td></tr>';
-									}
-								} else {
-									TR = '<tr><td>' + chanfreq.channel + '</td><td>' + chanfreq.frequency + '</td></tr>';
-								}
-	
-								$('#msg-error').hide();
-								$('#tbl-chanfreq').show().find('tbody').empty().append(TR);	
-							}												
+							LPFM.displayData(data);										
 						}						
-				});
+				});	
+		},
+		displayData: function (d) {
+			var chanfreq = d.interferingAnalysis,
+					chanfreqLen = chanfreq.length,
+					TR = '';
+
+			if (d.decision == 'FAIL.') {
+				$('#tbl-chanfreq').hide();
+				$('#msg-error').empty().show().append('There are no interfering channels and frequencies near the selected area.');
+			} else {
+				
+				// Populate Chan./Freq. table
+				if (chanfreqLen > 0) {
+					for (var i = 0; i < chanfreqLen; i++) {
+						TR += '<tr><td>' + chanfreq[i].channel + '</td><td>' + chanfreq[i].frequency + '</td></tr>';
+					}
+				} else {
+					TR = '<tr><td>' + chanfreq.channel + '</td><td>' + chanfreq.frequency + '</td></tr>';
+				}
+
+				$('#msg-error').hide();
+				$('#tbl-chanfreq').show().find('tbody').empty().append(TR);	
+			}		
+		}
+	}
+
+	Demog = {
+			getData: function() {
+
+				var url = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=jsonp&callback=?',
+					urlXML = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=xml';
+
+				$('#api-demo').attr('href', urlXML);				
 
 				// AJAX call to grab demographics data
 				$.getJSON(url, function(data) { 
@@ -219,5 +232,6 @@
 
 	FCCMap.init();
 	Coords.getPos();
-
+	Coords.getpos_Events();
+	
 })();
