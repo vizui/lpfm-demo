@@ -98,7 +98,7 @@
 						LPFM.getData();
 						Demog.getData();
 					}, function(error) {
-						alert('Unable to get current position. Using default position instead.');
+						alert('Unable to get current position.');
 					});
 				} else {
 					alert('Your browser does not currently support geolocation.');
