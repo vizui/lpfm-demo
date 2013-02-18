@@ -5,20 +5,9 @@
 			Demog = {},
 			FCCMap = {};
 	
-	// Enable Skiplinks to work in WebKit browsers (e.g. Safari and Chrome) 
-	var is_webkit = navigator.userAgent.toLowerCase().indexOf('webkit') > -1;
-	var is_opera = navigator.userAgent.toLowerCase().indexOf('opera') > -1;
-
-	if (is_webkit || is_opera) {
-	  $('.skipLink').click(function(e) {
-		  var target = $(this).attr('href').split('#')[1];					
-		  
-		  document.getElementById(target).focus();
-	  });	
-	}	
-	
 	FCCMap = {
-			init: function () {
+			init: function () { 
+				// Set default map to Washington DC
 				Coords.lat = 38.903228;
 				Coords.long = -77.046012;
 				
@@ -32,7 +21,7 @@
 				Demog.getData();
 			},
 			update: function() {
-				var mapContainer = $("#mapContainer")[0],
+				var mapContainer = $('#mapContainer')[0],
 					zipcode = $('#zipcode').val();
 				var boundArray = [];
 				var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc.map-rons6wgv/geocode/' + Coords.long + ',' + Coords.lat + '.jsonp';
@@ -65,7 +54,7 @@
 				$('#lat').text(Coords.lat.toFixed(4));
 				$('#long').text(Coords.long.toFixed(4));
 
-			}, // End FCCMap.update						
+			}, 				
 			geocode_zip: function(zip) {				
 				var mapBoxURL = 'http://api.tiles.mapbox.com/v3/fcc.map-rons6wgv/geocode/' + zip + '.jsonp';
 		
@@ -87,8 +76,8 @@
 					}
 				});
 				
-			} // End FCCMap.geocode_zip
-		} // End FCCMap
+			} 
+		} 
 
 	Coords = {
 			lat: null,
@@ -113,7 +102,6 @@
 					});
 				} else {
 					alert('Your browser does not currently support geolocation.');
-					FCCMap.init();
 				}
 			}, // End Coords.getPos
 			getpos_Events: function () {
@@ -145,7 +133,7 @@
 					Coords.getPos();
 				});	
 			} 
-		} // End Coords
+		} 
 
 	LPFM = {
 		getData: function () {
@@ -153,15 +141,15 @@
 			
 			$('#api-lpfm').attr('href', lpfmAPI);
 			
-			// AJAX call to grab LPFM data
-				$.getJSON(lpfmAPI, function(data) { 
-						if (data.status == 'Bad Request') {
-							$('#tbl-chanfreq').hide();
-							$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
-						} else {
-							LPFM.displayData(data);										
-						}						
-				});	
+			// Get LPFM data
+			$.getJSON(lpfmAPI, function(data) { 
+					if (data.status == 'Bad Request') {
+						$('#tbl-chanfreq').hide();
+						$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
+					} else {
+						LPFM.displayData(data);										
+					}						
+			});	
 		},
 		displayData: function (d) {
 			var chanfreq = d.interferingAnalysis,
@@ -192,11 +180,11 @@
 			getData: function() {
 
 				var url = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=jsonp&callback=?',
-					urlXML = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=xml';
+						urlXML = 'http://www.broadbandmap.gov/broadbandmap/demographic/jun2011/coordinates?latitude=' + Coords.lat + '&longitude=' + Coords.long + '&format=xml';
 
 				$('#api-demo').attr('href', urlXML);				
 
-				// AJAX call to grab demographics data
+				// Get demographics data
 				$.getJSON(url, function(data) { 
 					if ((data.status == "OK") && (data.message.length == 0)){						
 						Demog.displayData(data);		
@@ -206,7 +194,6 @@
 					}
 				});
 			},
-			// End Demog.getData
 			displayData: function(d) {
 				var dd = $('#lst-demog').find('dd');
 				
@@ -228,7 +215,7 @@
 				});
 				$('#lst-demog').show();
 			}
-		} // End Demog
+		} 
 
 	FCCMap.init();
 	Coords.getPos();
