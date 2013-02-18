@@ -1,0 +1,146 @@
+/* ======================================================================================================================================================= 
+   Primary Styles
+	 ======================================================================================================================================================= */   
+body { background: url("../img/page-bg.png") no-repeat scroll center 10px #010103; }
+
+/* =============================================================================
+   Header
+   ========================================================================== */
+header { background: url("../img/bgNav.png") repeat-x scroll 0 0 transparent; }
+#banner-fcc { height: 67px; }
+#logo-fcc { float: left; }
+#title-site { color: #FFFFFF; font-family: Arimo, Helvetica, Arial, sans-serif; font-size: 25px; font-weight: normal; margin: 0; padding: 5px 5px 0 0px; }
+#title-site a { border-bottom: medium none; color: #FFFFFF; margin-bottom: 1px; text-decoration: none; }
+#title-site a:hover, #title-site a:focus, #title-site a:active { border-bottom: 1px dotted #FFF; margin-bottom: 0; text-decoration: none; }
+
+/* =============================================================================
+   Main Wrapper
+   ========================================================================== */
+#main-wrapper { background: #FFF url(../img/main-body-bg.png) repeat-y top left; padding:0; }
+.content-body { margin: 10px 10px; padding: 10px 10px; }
+
+/* =============================================================================
+   Headings
+   ========================================================================== */
+.section-heading { font-size: 13px; font-weight: normal; line-height: 18px; margin-bottom: 5px; text-transform: uppercase; }
+.heading-dataSource { float: left; }
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+/* Product Details Features Tables */
+.tbl-data { clear: both; margin:0; width: 98%; }
+.tbl-data th, .tbl-data td { border-bottom:1px dashed #CCCCCC; padding:6px; vertical-align:top; text-align: left; }
+.tbl-data td { font-size: 11px; }
+.tbl-data th { padding-right:10px; border-bottom:1px dotted #ccc; }
+.tbl-data th { background-color: #DDD; width:auto; }
+.tbl-data tr.odd td { background-color:#F6F6F6; }
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+#skip { position:absolute; left:35%; top:0; z-index:900; width:50%; }
+#skip a { display:block; width:50%; padding:5px; border-width:0 1px 1px; border-style:solid; border-color:#8cdb78; background:#000; color:#bfe9ff; text-align:center; }
+#skip a:hover, #skip a:focus, #skip a:active { color:#9cf285; text-decoration:none; }
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+.dl-inline{ font-size: 11px; }
+.dl-inline dt { clear: left; float:left; margin:0 0 5px; font-weight:bold; }
+.dl-inline dd { margin: 0 0 5px 185px; word-wrap: break-word; }
+.api-source dd { margin-left: 140px; }
+
+
+/* =============================================================================
+   Buttons
+   ========================================================================== */
+	 
+/* Buttons - Regular actions */
+#btn-getCoords { vertical-align: top; }
+
+
+/* Buttons - Secondary actions  */
+.button.secondary, input[type="submit"].button.secondary { border-color:#054567; background-color:#2494cb; background-position:0 -280px; color:#fff; text-shadow:0 -1px 0 #054567; }
+.button.secondary:hover, .button.secondary:focus, .button.secondary.focus, input[type="submit"].button.secondary:hover, input[type="submit"].button.secondary:focus { border-color:#046fa2; background-color:#35a6df; background-position:0 -350px; text-shadow:0 -1px 0 #0c7ebf; }
+
+
+/* =============================================================================
+   Sidebar
+   ========================================================================== */
+#sidebar nav { padding-top: 10px; }
+#sidebar .widget { margin: 10px 15px; }
+#sidebar .block li { margin-bottom: 0; }
+#blk-locInfo { clear: both;	font-size: 11px; }
+.dataSourceInfo { clear: both; font-size: 11px; }
+
+/* Map Container */
+#mapContainer { height: 150px; margin-bottom: 25px; width: 100%; }
+
+/* =============================================================================
+   Messages
+   ========================================================================== */
+.msg-error { color: #AE0000; }
+
+#loading { background:transparent url(../img/loading.gif) no-repeat center top; clear:both; height:18px; left: 0px; margin: 10px 0; padding-top:25px; position: absolute; top: 30px; text-align:center; width: 100%; }
+
+
+/* =============================================================================
+   Footer
+   ========================================================================== */
+footer { clear: both; color: #EBEBEB; font-size: 11px; margin: 0 0 100px; padding: 0; }
+footer a:link, footer a:visited { color: #EBEBEB; }
+footer .container { background-color: #5D5D5D; padding:0; }
+footer .left { padding: 20px 0 0 20px; }
+footer .right { background-color: #505050; padding: 10px 20px 50px; }
+footer .right ul { border-top: 1px solid #7F8080; margin-bottom: 20px; padding-top: 20px; }
+footer ul { list-style: none outside none; margin: 0; padding: 0; }
+footer li { line-height: 1.54em; list-style: none outside none; margin-bottom: 0; }
+footer .seal { background: url("../img/FCCseal.png") no-repeat scroll left 25px transparent; border-top: 1px solid #7F8080; clear: both; display: block; font-style: normal; line-height: 1.4em; margin-top: 20px; padding: 30px 0 20px 130px; }
+#footer-nav { margin-bottom: 20px; }
+
+
+/* #Media Queries
+================================================== */
+
+	/* Tablet Landscape size */
+	@media only screen and (min-width: 960px) and (max-width: 1400px) {
+		body { background: url("../img/page-bg-mobile.jpg") no-repeat scroll center 10px #010103; }
+	}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		body { background: url("../img/page-bg-mobile.jpg") no-repeat scroll center 10px #010103; }
+		#main-wrapper { background: url("../img/main-body-bg-medium.png") repeat-y scroll left top #FFFFFF; }
+		.content-body { padding: 0; margin-top: 20px; }
+		.dl-inline dt { float: none; line-height: normal; margin-bottom: 0; }
+		.dl-inline dd { margin: 0 0 10px 10px; }
+		footer .left { padding: 20px 0 0; }
+		#footer-nav .columns.omega { margin-left: 0; }		
+	}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {
+		body { background: url("../img/page-bg-mobile.jpg") no-repeat scroll center 10px #010103; }
+		#title-site { font-size: 20px; line-height: 30px; padding: 5px 5px 20px 0; }
+		#main-content h1 { margin: 0 15px; padding-left: 0; }		
+		.content-body { padding: 0; }
+		.tbl-data { width: 100%; }
+		
+		#sidebar { background-color: #F0F0F0; }
+		#sidebar .widget { margin: 10px 10px; }
+		#footer-nav div { margin-bottom: 10px; }
+	}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {
+		body { background: url("../img/page-bg-mobile.jpg") no-repeat scroll center 10px #010103; }
+	}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
+		body { background: url("../img/page-bg-mobile.jpg") no-repeat scroll center 10px #010103; }
+		#lnk-curLoc { display: inline-block; margin-top: 10px; }
+	}
