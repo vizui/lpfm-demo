@@ -137,18 +137,20 @@
 
 	LPFM = {
 		getData: function () {
-			var lpfmAPI = 'http://data.fcc.gov/lpfmapi/rest/v1/lat/' + Coords.lat + '/long/' + Coords.long + '?secondchannel=true&format=jsonp&callback=?';
+			var lpfmAPI = 'http://data.fcc.gov/lpfmapi/rest/v1/lat/' + Coords.lat + '/long/' + Coords.long + '?secondchannel=false&format=jsonp&callback=?';
 			
 			$('#api-lpfm').attr('href', lpfmAPI);
 			
 			// Get LPFM data
-			$.getJSON(lpfmAPI, function(data) { 
-					if (data.status == 'Bad Request') {
-						$('#tbl-chanfreq').hide();
-						$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
-					} else {
-						LPFM.displayData(data);										
-					}						
+			$.getJSON(lpfmAPI, function(data) { 			
+				if (data.status == 'Bad Request') {
+					$('#tbl-chanfreq').hide();
+					$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
+				} else if (data.message.length==0) {
+					alert('LPFM Data API is currently unavailalbe. Please wait a few minutes and try again.');
+				} else {
+					LPFM.displayData(data);										
+				}						
 			});	
 		},
 		displayData: function (d) {
