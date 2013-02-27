@@ -146,8 +146,6 @@
 				if (data.status == 'Bad Request') {
 					$('#tbl-chanfreq').hide();
 					$('#msg-error').empty().show().append('<span class="msg-error">' + data.message[0] + '.</span>');
-				} else if (data.message.length==0) {
-					alert('LPFM Data API is temporarily unavailable. Please wait a few minutes and try again.');
 				} else {
 					LPFM.displayData(data);										
 				}						
